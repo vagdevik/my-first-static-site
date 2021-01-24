@@ -1,0 +1,17 @@
+language: generic
+# Tell Travis we need docker
+services:
+    - docker
+
+# Tell Travis how to deploy code to AWS
+deploy:
+    provider: elasticbeanstalk # We will deploy code to Elastic Beanstalk
+    region: us-west-2 # Specify your region
+    app: "my-first-site" # Copy it from Elastic Beanstalk dashboard
+    env: "MyFirstSite-env" # Copy it from Elastic Beanstalk dashboard
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket_name: "first-static-site-to-be-deleted" # Elastic Beanstalk will take code from S3 bucket and deploy it in container. Take it from AWS S3 
+    bucket_path: "docker" # Folder where Travis CI will upload the code in zip file in this folder. Take it from AWS S3
+    on:
+        branch: master # Deploy only when there are changes on master branch

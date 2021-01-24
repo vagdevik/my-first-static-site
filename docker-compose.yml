@@ -1,0 +1,16 @@
+version: '3'
+services:
+    web:
+        tty: true # Terminal
+        # We are defining the custom Dockerfile
+        build:
+            context: .
+            dockerfile: Dockerfile
+        # Map local machine's 8000 port to container's port 3000
+        # React app runs on port 3000 by default
+        ports:
+            - "8000:80"
+        # Volumes
+        volumes:
+            # Map local-machine-folder:container-folder
+            - ./html:/usr/share/nginx/html/
